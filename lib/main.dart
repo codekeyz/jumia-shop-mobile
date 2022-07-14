@@ -44,7 +44,15 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return LoaderScreen(child: child!);
       },
-      theme: ThemeData(primarySwatch: Colors.red),
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        backgroundColor: Colors.white,
+        splashColor: Colors.white,
+        canvasColor: Colors.white,
+        inputDecorationTheme: const InputDecorationTheme(
+          fillColor: Colors.white,
+        ),
+      ),
     );
   }
 }

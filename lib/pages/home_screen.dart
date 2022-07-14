@@ -1,5 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:jumia_shop/router/user_router.gr.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,29 +10,59 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<void> _openYouTubeURL() async {
-    await launchUrl(Uri.parse('https://youtube.com/channel/UC6jlYIiB-_ckrAXBKsNRsvw'));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.network(
-              'https://drive.google.com/uc?export=download&id=1tqkpVzkwttJBfFDghTLfDowdOZ_cEfgc',
-              width: 400,
+      appBar: AppBar(
+        title: Image.asset('assets/img/logo_name.png'),
+        actions: [
+          IconButton(
+            onPressed: () => AutoRouter.of(context).push(
+              const CartRoute(),
             ),
-          ],
+            splashRadius: 20,
+            icon: const Icon(Icons.shopping_cart_outlined),
+          )
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(55),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => AutoRouter.of(context).push(
+                    const SearchRoute(),
+                  ),
+                  child: const TextField(
+                    autofocus: false,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      hintText: 'Searching for products, brands',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _openYouTubeURL,
-        tooltip: 'Open Link',
-        child: const Icon(Icons.open_in_browser),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const <Widget>[],
       ),
     );
   }
