@@ -32,6 +32,7 @@
 /build/
 /**/*.g.dart
 /**/*.gr.dart
+/packages/
 
 
 # Web related
