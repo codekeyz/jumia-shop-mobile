@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/widgets/loader/loader_controller.dart';
-import 'package:flutter_boilerplate/widgets/loader/loader_view.dart';
+import 'package:jumia_shop/widgets/loader/loader_controller.dart';
+import 'package:jumia_shop/widgets/loader/loader_view.dart';
 
 enum LoaderState { showing, hidden }
 
@@ -23,7 +23,8 @@ class LoaderScreen extends StatefulWidget {
   State<LoaderScreen> createState() => _LoaderScreenState();
 }
 
-class _LoaderScreenState extends State<LoaderScreen> with SingleTickerProviderStateMixin {
+class _LoaderScreenState extends State<LoaderScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController animationCtrl;
 
   @override
@@ -37,7 +38,8 @@ class _LoaderScreenState extends State<LoaderScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    final loaderCtrl = LoaderController.of(context)..withController(animationCtrl);
+    final loaderCtrl = LoaderController.of(context)
+      ..withController(animationCtrl);
     return StreamBuilder<LoaderData>(
       builder: (_, snap) {
         final data = snap.data;

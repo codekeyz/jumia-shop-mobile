@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_boilerplate/pages/home_screen.dart';
+import 'package:jumia_shop/pages/home_screen.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page,Route,Screen',

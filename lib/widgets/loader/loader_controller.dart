@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/utils/data_stream_mixin.dart';
-import 'package:flutter_boilerplate/widgets/loader/loader_screen.dart';
+import 'package:jumia_shop/utils/data_stream_mixin.dart';
+import 'package:jumia_shop/widgets/loader/loader_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoaderController extends ChangeNotifier with DataStreamMixin<LoaderData> {

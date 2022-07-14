@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/router/user_router.gr.dart';
-import 'package:flutter_boilerplate/widgets/loader/loader_controller.dart';
-import 'package:flutter_boilerplate/widgets/loader/loader_screen.dart';
+import 'package:jumia_shop/router/user_router.gr.dart';
+import 'package:jumia_shop/widgets/loader/loader_controller.dart';
+import 'package:jumia_shop/widgets/loader/loader_screen.dart';
 import 'package:provider/provider.dart';
 
 class _AppDataProviders extends StatelessWidget {
@@ -16,7 +16,8 @@ class _AppDataProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<LoaderController>(create: (_) => LoaderController()),
+        ChangeNotifierProvider<LoaderController>(
+            create: (_) => LoaderController()),
       ],
       child: child,
     );
