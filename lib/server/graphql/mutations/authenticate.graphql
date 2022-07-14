@@ -1,0 +1,5 @@
+mutation authenticate($token: String!) {
+  authenticate(input: { firebase: { token: $token } }, rememberMe: true) {
+    __typename
+  }
+}

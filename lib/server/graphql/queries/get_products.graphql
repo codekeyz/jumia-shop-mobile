@@ -1,0 +1,41 @@
+query products {
+  products(options: {}) {
+    items {
+      id
+      createdAt
+      updatedAt
+      languageCode
+      name
+      slug
+      description
+      featuredAsset {
+        name
+        type
+        source
+      }
+      assets {
+        name
+        type
+        source
+      }
+      variants {
+        id
+        product {
+          name
+          slug
+          description
+          featuredAsset {
+            name
+            type
+            source
+          }
+        }
+      }
+      optionGroups {
+        id
+        name
+      }
+    }
+    totalItems
+  }
+}

@@ -1,0 +1,30 @@
+query collections {
+  collections(options: {}) {
+    items {
+      id
+      createdAt
+      updatedAt
+      languageCode
+      name
+      slug
+      position
+      description
+      featuredAsset {
+        id
+        name
+      }
+      assets {
+        id
+        type
+      }
+      children {
+        name
+        slug
+      }
+      filters {
+        code
+      }
+    }
+    totalItems
+  }
+}
