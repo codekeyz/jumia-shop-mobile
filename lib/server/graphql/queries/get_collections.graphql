@@ -1,30 +1,27 @@
 query collections {
   collections(options: {}) {
     items {
-      id
-      createdAt
-      updatedAt
-      languageCode
-      name
-      slug
-      position
-      description
-      featuredAsset {
-        id
-        name
-      }
-      assets {
-        id
-        type
-      }
+      ...CollectionData
       children {
-        name
-        slug
-      }
-      filters {
-        code
+        ...CollectionData
       }
     }
     totalItems
+  }
+}
+
+fragment CollectionData on Collection {
+  id
+  createdAt
+  updatedAt
+  languageCode
+  name
+  slug
+  position
+  description
+  featuredAsset {
+    name
+    source
+    type
   }
 }
