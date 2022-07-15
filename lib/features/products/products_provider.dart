@@ -1,8 +1,8 @@
+import 'package:gql_client/gql_client.dart';
 import 'package:jumia_shop/server/graphql/queries/get_products.g.dart';
 import 'package:jumia_shop/server/models/product.dart';
 import 'package:jumia_shop/server/services/injector.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
-import 'package:gql_client/gql_client.dart';
 
 class ProductsProvider extends BaseProvider<List<Product>> {
   GraphQLClient get gqlClient => getIt.get<GraphQLClient>();
@@ -21,7 +21,6 @@ class ProductsProvider extends BaseProvider<List<Product>> {
     ProductListOptions? options,
   }) async {
     if (options != null) _options = options;
-    notifyListeners();
 
     try {
       final result = await gqlClient.runQuery(
@@ -29,9 +28,7 @@ class ProductsProvider extends BaseProvider<List<Product>> {
         resultKey: 'products',
       );
 
-      final products = (result!['items'] as Iterable)
-          .map((e) => Product.fromJson(e))
-          .toList();
+      final products = (result!['items'] as Iterable).map((e) => Product.fromJson(e)).toList();
 
       for (final p in products) {
         _dataBag[p.id] = p;
