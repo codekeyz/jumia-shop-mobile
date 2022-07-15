@@ -16,8 +16,7 @@ class PaginatedModel<T> {
         (v) => (v as dynamic).toJson(),
       );
 
-  factory PaginatedModel.fromJson(
-          Map<String, dynamic> datamap, FJson<T> parse) =>
+  factory PaginatedModel.fromJson(Map<String, dynamic> datamap, FJson<T> parse) =>
       _$PaginatedModelFromJson(datamap, parse);
 }
 
@@ -30,4 +29,16 @@ class ServerIdRelation {
 
   factory ServerIdRelation.fromJson(Map<String, dynamic> datamap) =>
       _$ServerIdRelationFromJson(datamap);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ServerValue {
+  final String id;
+  final String name;
+
+  const ServerValue(this.id, this.name);
+
+  Map<String, dynamic> toJson() => _$ServerValueToJson(this);
+
+  factory ServerValue.fromJson(Map<String, dynamic> datamap) => _$ServerValueFromJson(datamap);
 }

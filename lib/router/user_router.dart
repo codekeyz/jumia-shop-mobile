@@ -4,6 +4,7 @@ import 'package:jumia_shop/pages/basket_screen.dart';
 import 'package:jumia_shop/pages/category_screen.dart';
 import 'package:jumia_shop/pages/home_screen.dart';
 import 'package:jumia_shop/pages/index_screen.dart';
+import 'package:jumia_shop/pages/product/product_detail_screen.dart';
 import 'package:jumia_shop/pages/search_screen.dart';
 import 'package:jumia_shop/pages/splash_screen.dart';
 
@@ -38,6 +39,11 @@ import 'package:jumia_shop/pages/splash_screen.dart';
           path: 'account',
         )
       ],
+    ),
+    AutoRoute(
+      path: '/product-detail',
+      page: ProductDetailScreen,
+      name: 'ProductDetailRoute',
     ),
     AutoRoute(
       path: '/search',
