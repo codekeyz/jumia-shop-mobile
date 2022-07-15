@@ -8,6 +8,11 @@ class ProviderEvent<T> {
   final ProviderState state;
   final String? message;
 
+  const ProviderEvent.idle()
+      : state = ProviderState.idle,
+        data = null,
+        message = null;
+
   const ProviderEvent.loading({this.data})
       : state = ProviderState.loading,
         message = null;
@@ -21,5 +26,4 @@ class ProviderEvent<T> {
         data = null;
 }
 
-abstract class BaseProvider<T> extends ChangeNotifier
-    with DataStreamMixin<ProviderEvent<T>> {}
+abstract class BaseProvider<T> extends ChangeNotifier with DataStreamMixin<ProviderEvent<T>> {}

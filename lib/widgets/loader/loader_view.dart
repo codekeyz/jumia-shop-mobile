@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class LoaderView extends StatefulWidget {
   final AnimationController controller;
+  final bool useColor;
   final String? message;
 
   const LoaderView({
     Key? key,
     required this.controller,
-    this.message = "Please wait",
+    this.message = "Please wait...",
+    this.useColor = true,
   }) : super(key: key);
 
   @override
@@ -32,6 +34,10 @@ class _LoaderViewState extends State<LoaderView> with SingleTickerProviderStateM
     return AnimatedBuilder(
       animation: controller,
       builder: (context, child) {
+        if (!widget.useColor) {
+          return child!;
+        }
+
         return Container(
           color: Colors.black.withOpacity(blurValue.value),
           child: child,
@@ -49,16 +55,17 @@ class _LoaderViewState extends State<LoaderView> with SingleTickerProviderStateM
                 children: [
                   const _AnimatedLoader(
                     imageProvider: AssetImage('assets/img/logo.png'),
-                    size: 220,
+                    size: 180,
                   ),
                   if (widget.message != null) ...[
                     const SizedBox(height: 24),
                     Text(
                       widget.message!,
                       style: _themeData.textTheme.subtitle1!.copyWith(
-                        color: Colors.black38,
+                        color: Colors.white,
                         fontSize: 15,
                         height: 1.3,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                   ]
