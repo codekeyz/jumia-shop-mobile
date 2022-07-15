@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jumia_shop/features/products/products_provider.dart';
 import 'package:jumia_shop/router/user_router.gr.dart';
+import 'package:jumia_shop/server/services/injector.dart';
 import 'package:jumia_shop/widgets/loader/loader_controller.dart';
 import 'package:jumia_shop/widgets/loader/loader_screen.dart';
 import 'package:provider/provider.dart';
@@ -18,13 +20,17 @@ class _AppDataProviders extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<LoaderController>(
             create: (_) => LoaderController()),
+        ChangeNotifierProvider<ProductsProvider>(
+            create: (_) => ProductsProvider()),
       ],
       child: child,
     );
   }
 }
 
-void main() {
+void main() async {
+  await registerServices();
+
   runApp(_AppDataProviders(child: MyApp()));
 }
 
@@ -52,6 +58,7 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: const InputDecorationTheme(
           fillColor: Colors.white,
         ),
+        fontFamily: 'Rubik',
       ),
     );
   }
