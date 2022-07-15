@@ -25,15 +25,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 autofocus: true,
                 controller: _searchTextCtrl,
                 decoration: InputDecoration(
-                  hintText: 'Searching for a job?',
+                  hintText: 'Searching for products, brands',
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(width: 0, style: BorderStyle.none),
                   ),
                   filled: true,
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  prefixIcon:
-                      searchText.isEmpty ? const Icon(Icons.search) : null,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  prefixIcon: searchText.isEmpty ? const Icon(Icons.search) : null,
                   suffixIcon: GestureDetector(
                     child: const Icon(Icons.close),
                     onTap: () {
