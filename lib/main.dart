@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jumia_shop/features/categories/category_provider.dart';
 import 'package:jumia_shop/features/products/products_provider.dart';
 import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/services/injector.dart';
@@ -18,10 +19,9 @@ class _AppDataProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<LoaderController>(
-            create: (_) => LoaderController()),
-        ChangeNotifierProvider<ProductsProvider>(
-            create: (_) => ProductsProvider()),
+        ChangeNotifierProvider<LoaderController>(create: (_) => LoaderController()),
+        ChangeNotifierProvider<ProductsProvider>(create: (_) => ProductsProvider()),
+        ChangeNotifierProvider<CategoryProvider>(create: (_) => CategoryProvider()),
       ],
       child: child,
     );
@@ -57,6 +57,11 @@ class MyApp extends StatelessWidget {
         canvasColor: Colors.white,
         inputDecorationTheme: const InputDecorationTheme(
           fillColor: Colors.white,
+          hintStyle: TextStyle(
+            fontWeight: FontWeight.w300,
+            color: Colors.black,
+            fontSize: 14,
+          ),
         ),
         fontFamily: 'Rubik',
       ),
