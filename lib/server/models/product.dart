@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:jumia_shop/server/models/server_asset.dart';
 import 'package:jumia_shop/server/models/server_models.dart';
+import 'package:jumia_shop/utils/helper_fncs.dart';
 
 part 'product.g.dart';
 
@@ -65,4 +66,43 @@ class ProductVariant {
   factory ProductVariant.fromJson(Map<String, dynamic> datamap) {
     return _$ProductVariantFromJson(datamap);
   }
+}
+
+@JsonEnum(fieldRename: FieldRename.screamingSnake)
+enum ProductSortOrder { asc, desc }
+
+@JsonSerializable(explicitToJson: true)
+class ProductSortParameter {
+  final ProductSortOrder? id;
+  final ProductSortOrder? createdAt;
+  final ProductSortOrder? updatedAt;
+  final ProductSortOrder? name;
+
+  const ProductSortParameter({
+    this.name,
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  Map<String, dynamic> toJson() =>
+      _$ProductSortParameterToJson(this)..removeNulls();
+
+  factory ProductSortParameter.fromJson(Map<String, dynamic> datamap) =>
+      _$ProductSortParameterFromJson(datamap);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ProductListOptions {
+  final ProductSortParameter sort;
+
+  const ProductListOptions({
+    this.sort = const ProductSortParameter(),
+  });
+
+  Map<String, dynamic> toJson() =>
+      _$ProductListOptionsToJson(this)..removeNulls();
+
+  factory ProductListOptions.fromJson(Map<String, dynamic> datamap) =>
+      _$ProductListOptionsFromJson(datamap);
 }

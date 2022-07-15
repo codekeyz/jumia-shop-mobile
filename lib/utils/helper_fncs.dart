@@ -14,3 +14,21 @@ extension EnumExtension on Object {
     return toString().split('.')[1];
   }
 }
+
+extension MapExtension on Map {
+  Map removeNulls() {
+    List<dynamic> _keysToRemove = [];
+
+    for (final k in keys) {
+      if (this[k] == null) _keysToRemove.add(k);
+    }
+
+    if (_keysToRemove.isNotEmpty) {
+      for (final _k in _keysToRemove) {
+        remove(_k);
+      }
+    }
+
+    return this;
+  }
+}

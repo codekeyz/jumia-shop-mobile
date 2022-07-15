@@ -10,13 +10,22 @@ class ProductsProvider extends BaseProvider<List<Product>> {
   ProductsProvider();
 
   final Map<String, Product> _dataBag = {};
+  ProductListOptions _options = const ProductListOptions();
 
   List<Product> get products => _dataBag.values.toList();
 
-  Future<void> fetchProducts({bool refresh = false}) async {
+  ProductListOptions get options => _options;
+
+  Future<void> fetchProducts({
+    bool refresh = false,
+    ProductListOptions? options,
+  }) async {
+    if (options != null) _options = options;
+    notifyListeners();
+
     try {
       final result = await gqlClient.runQuery(
-        GetProductsRequest(),
+        GetProductsRequest(options: _options.toJson()),
         resultKey: 'products',
       );
 

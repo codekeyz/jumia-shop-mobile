@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jumia_shop/features/products/products_provider.dart';
 import 'package:jumia_shop/pages/widgets/product_item.dart';
 import 'package:jumia_shop/router/user_router.gr.dart';
+import 'package:jumia_shop/server/models/product.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
 import 'package:jumia_shop/widgets/empty_state_screen.dart';
 import 'package:jumia_shop/widgets/refresh_wrapper.dart';
@@ -17,6 +18,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late ProductsProvider _productProvider;
+
+  Future<void> fetchProducts() async {
+    return await _productProvider.fetchProducts(
+      refresh: true,
+      options: const ProductListOptions(
+        sort: ProductSortParameter(name: ProductSortOrder.asc),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,29 +79,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: RefreshWrapper(
-        onRefresh: () async {
-          _productProvider.fetchProducts(refresh: true);
-        },
-        body: StreamBuilder<ProviderEvent>(
-          stream: _productProvider.stream,
-          initialData: _productProvider.lastEvent,
-          builder: (_, snap) {
-            final data = snap.data;
-            final products = _productProvider.products;
-            if (products.isEmpty) {
-              if (data?.state == ProviderState.loading) {
-                return const SizedBox.shrink();
-              } else if (data?.state == ProviderState.error) {
-                return EmptyStateScreen(
-                  onRefresh: () =>
-                      _productProvider.fetchProducts(refresh: true),
-                  message:
-                      data?.message ?? 'An error occurred while fetching data',
-                );
-              }
+      body: StreamBuilder<ProviderEvent>(
+        stream: _productProvider.stream,
+        initialData: _productProvider.lastEvent,
+        builder: (_, snap) {
+          final data = snap.data;
+          final products = _productProvider.products;
+          if (products.isEmpty) {
+            if (data?.state == ProviderState.loading) {
+              return const SizedBox.shrink();
+            } else if (data?.state == ProviderState.error) {
+              return EmptyStateScreen(
+                onRefresh: fetchProducts,
+                message:
+                    data?.message ?? 'An error occurred while fetching data',
+              );
             }
-            return GridView.builder(
+          }
+
+          return RefreshWrapper(
+            onRefresh: () => fetchProducts(),
+            body: GridView.builder(
               itemCount: products.length,
               padding: const EdgeInsets.all(16),
               primary: false,
@@ -105,9 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) => ProductItem(
                 product: products[index],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
