@@ -5,18 +5,20 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class RefreshWrapper extends StatelessWidget {
-  final Widget body;
+  final Widget? body;
   final Future Function() onRefresh;
   final EdgeInsets? padding;
 
   final ScrollController? controller;
+  final Widget Function(BuildContext ctx)? buildScrollParent;
 
   const RefreshWrapper({
     Key? key,
     required this.onRefresh,
-    required this.body,
+    this.body,
     this.padding,
     this.controller,
+    this.buildScrollParent,
   }) : super(key: key);
 
   @override
@@ -26,12 +28,14 @@ class RefreshWrapper extends StatelessWidget {
         onRefresh: onRefresh,
         child: Scrollbar(
           controller: controller,
-          child: SingleChildScrollView(
-            controller: controller,
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: body,
-            padding: padding,
-          ),
+          child: buildScrollParent == null
+              ? SingleChildScrollView(
+                  controller: controller,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: body,
+                  padding: padding,
+                )
+              : buildScrollParent!.call(context),
         ),
       );
     }
@@ -43,11 +47,13 @@ class RefreshWrapper extends StatelessWidget {
         slivers: <Widget>[
           CupertinoSliverRefreshControl(onRefresh: onRefresh),
           SliverToBoxAdapter(
-            child: SingleChildScrollView(
-              child: body,
-              padding: padding,
-              primary: false,
-            ),
+            child: buildScrollParent == null
+                ? SingleChildScrollView(
+                    child: body,
+                    padding: padding,
+                    primary: false,
+                  )
+                : buildScrollParent!.call(context),
           ),
         ],
       ),

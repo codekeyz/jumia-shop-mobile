@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'server_asset.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -11,6 +12,5 @@ class ServerAsset {
 
   Map<String, dynamic> toJson() => _$ServerAssetToJson(this);
 
-  factory ServerAsset.fromJson(Map<String, dynamic> datamap) =>
-      _$ServerAssetFromJson(datamap);
+  factory ServerAsset.fromJson(Map<String, dynamic> datamap) => _$ServerAssetFromJson(datamap);
 }

@@ -31,12 +31,10 @@ class Product {
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 
-  factory Product.fromJson(Map<String, dynamic> datamap) =>
-      _$ProductFromJson(datamap);
+  factory Product.fromJson(Map<String, dynamic> datamap) => _$ProductFromJson(datamap);
 
   static _fromJson(Map<String, dynamic> data) {
-    return PaginatedModel.fromJson(
-        data, (_) => ProductVariant.fromJson(_ as dynamic));
+    return PaginatedModel.fromJson(data, (_) => ProductVariant.fromJson(_ as dynamic));
   }
 }
 
@@ -85,8 +83,7 @@ class ProductSortParameter {
     this.updatedAt,
   });
 
-  Map<String, dynamic> toJson() =>
-      _$ProductSortParameterToJson(this)..removeNulls();
+  Map<String, dynamic> toJson() => _$ProductSortParameterToJson(this)..removeNulls();
 
   factory ProductSortParameter.fromJson(Map<String, dynamic> datamap) =>
       _$ProductSortParameterFromJson(datamap);
@@ -100,8 +97,7 @@ class ProductListOptions {
     this.sort = const ProductSortParameter(),
   });
 
-  Map<String, dynamic> toJson() =>
-      _$ProductListOptionsToJson(this)..removeNulls();
+  Map<String, dynamic> toJson() => _$ProductListOptionsToJson(this)..removeNulls();
 
   factory ProductListOptions.fromJson(Map<String, dynamic> datamap) =>
       _$ProductListOptionsFromJson(datamap);
