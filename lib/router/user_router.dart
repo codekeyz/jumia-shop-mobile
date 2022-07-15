@@ -5,14 +5,20 @@ import 'package:jumia_shop/pages/category_screen.dart';
 import 'package:jumia_shop/pages/home_screen.dart';
 import 'package:jumia_shop/pages/index_screen.dart';
 import 'package:jumia_shop/pages/search_screen.dart';
+import 'package:jumia_shop/pages/splash_screen.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page,Route,Screen',
   routes: <AutoRoute>[
     AutoRoute(
       path: '/',
-      name: "IndexRoute",
+      name: 'SplashRoute',
+      page: SplashScreen,
       initial: true,
+    ),
+    AutoRoute(
+      path: '/index',
+      name: "IndexRoute",
       page: IndexScreen,
       children: [
         AutoRoute(
