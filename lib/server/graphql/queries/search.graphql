@@ -1,0 +1,43 @@
+query search($input: SearchInput!) {
+  search(input: $input) {
+    items {
+      slug
+      productId
+      productName
+      productAsset {
+        preview
+      }
+      productVariantId
+      productVariantName
+      productVariantAsset {
+        preview
+      }
+      currencyCode
+      description
+      score
+      inStock
+    }
+    totalItems
+    collections {
+      collection {
+        ...CollectionData
+      }
+    }
+  }
+}
+
+fragment CollectionData on Collection {
+  id
+  createdAt
+  updatedAt
+  languageCode
+  name
+  slug
+  position
+  description
+  featuredAsset {
+    name
+    source
+    type
+  }
+}
