@@ -91,6 +91,7 @@ class ProductCategory {
 
 @JsonSerializable(explicitToJson: true)
 class ProductVariant {
+  final String id;
   final String name;
   final double price;
   final String? stockLevel;
@@ -104,6 +105,7 @@ class ProductVariant {
   final DateTime createdAt, updatedAt;
 
   const ProductVariant(
+    this.id,
     this.name,
     this.product,
     this.price, {

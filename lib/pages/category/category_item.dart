@@ -41,8 +41,13 @@ class CategoryItemParent extends StatelessWidget {
 
 class CategoryItemChild extends StatelessWidget {
   final Category category;
+  final VoidCallback onTap;
 
-  const CategoryItemChild({Key? key, required this.category}) : super(key: key);
+  const CategoryItemChild({
+    Key? key,
+    required this.category,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,7 @@ class CategoryItemChild extends StatelessWidget {
       title: category.name,
       alignment: CrossAxisAlignment.center,
       imageProvider: NetworkImage(category.featuredAsset?.source ?? ''),
-      onTap: () {},
+      onTap: onTap,
       titleStyle: themeData.textTheme.bodyText2?.copyWith(
         color: Colors.black,
         fontWeight: FontWeight.w300,

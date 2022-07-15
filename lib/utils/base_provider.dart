@@ -26,4 +26,10 @@ class ProviderEvent<T> {
         data = null;
 }
 
-abstract class BaseProvider<T> extends ChangeNotifier with DataStreamMixin<ProviderEvent<T>> {}
+abstract class BaseProvider<T> extends ChangeNotifier with DataStreamMixin<ProviderEvent<T>> {
+  @override
+  void clear() {
+    super.clear();
+    addEvent(const ProviderEvent.idle());
+  }
+}

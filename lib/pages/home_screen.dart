@@ -33,9 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () => AutoRouter.of(context).push(
-                    const SearchRoute(),
-                  ),
+                  onTap: () => AutoRouter.of(context).push(SearchRoute()),
                   child: const TextField(
                     autofocus: false,
                     enabled: false,

@@ -15,10 +15,13 @@ class ProductDetailScreen extends StatefulWidget {
   final String? productId;
   final String? productSlug;
 
+  final String? productVariantId;
+
   const ProductDetailScreen({
     Key? key,
     @QueryParam() this.productId,
     @QueryParam() this.productSlug,
+    @QueryParam() this.productVariantId,
   })  : assert(productId != null || productSlug != null),
         super(key: key);
 
@@ -53,14 +56,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             resultKey: 'product',
           );
 
-      _selectedVariant = null;
+      final detail = ProductDetail.fromJson(_result!);
 
-      _detailNotifier.value = ProviderEvent.success(
-        data: ProductDetail.fromJson(_result!),
-      );
+      setVariant(detail.variants);
+      _detailNotifier.value = ProviderEvent.success(data: detail);
     } on NetworkError catch (e) {
       _detailNotifier.value = ProviderEvent.error(message: e.message);
     }
+  }
+
+  void setVariant(List<ProductVariant> variants) {
+    _selectedVariant = variants.firstWhere(
+      (e) => e.id == widget.productVariantId,
+      orElse: () => variants.first,
+    );
   }
 
   @override
@@ -77,8 +86,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
         final facetValues = productDetail.facetValues;
         final variants = productDetail.variants;
-
-        _selectedVariant ??= variants.first;
 
         final featuredAsset = _selectedVariant?.featuredAsset ?? productDetail.featuredAsset;
 
@@ -176,7 +183,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       primary: Colors.white,
                     ),
                     icon: const Icon(Icons.add_shopping_cart_outlined),
-                    label: Text('Add to Cart'),
+                    label: const Text('Add to Cart'),
                   ),
                 )
               ],

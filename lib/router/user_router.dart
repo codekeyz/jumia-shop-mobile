@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:jumia_shop/pages/account_screen.dart';
 import 'package:jumia_shop/pages/basket_screen.dart';
-import 'package:jumia_shop/pages/category_screen.dart';
+import 'package:jumia_shop/pages/category/category_screen.dart';
 import 'package:jumia_shop/pages/home_screen.dart';
 import 'package:jumia_shop/pages/index_screen.dart';
 import 'package:jumia_shop/pages/product/product_detail_screen.dart';

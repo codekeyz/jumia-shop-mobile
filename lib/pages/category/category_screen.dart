@@ -1,7 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:jumia_shop/features/categories/category_provider.dart';
-import 'package:jumia_shop/pages/widgets/category_item.dart';
+import 'package:jumia_shop/pages/category/category_item.dart';
+import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/models/category.dart';
+import 'package:jumia_shop/server/models/search.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
 import 'package:jumia_shop/widgets/empty_state_screen.dart';
 import 'package:jumia_shop/widgets/refresh_wrapper.dart';
@@ -86,56 +89,64 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: RefreshWrapper(
-                  onRefresh: () => fetchCategories(),
-                  body: Column(
-                    children: [
-                      Container(
-                        color: Colors.white,
-                        width: double.maxFinite,
-                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('SEE ALL PRODUCTS',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                )),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.chevron_right),
-                            ),
-                          ],
-                        ),
+                child: Column(
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      width: double.maxFinite,
+                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('SEE ALL PRODUCTS',
+                              style: TextStyle(
+                                fontSize: 12,
+                              )),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.chevron_right),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 5),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 200),
-                        child: _selectedCategory == null
-                            ? const SizedBox.shrink()
-                            : Builder(
-                                builder: (_) {
-                                  final children = _selectedCategory!.children;
-                                  return GridView.builder(
-                                    itemCount: children.length,
-                                    padding: const EdgeInsets.all(5),
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 8,
-                                      crossAxisSpacing: 8,
-                                      childAspectRatio: 0.8,
-                                    ),
-                                    itemBuilder: (context, index) => CategoryItemChild(
-                                      category: children[index],
-                                    ),
-                                  );
+                    ),
+                    const SizedBox(height: 5),
+                    Expanded(
+                      child: RefreshWrapper(
+                        onRefresh: fetchCategories,
+                        buildScrollParent: (_) {
+                          if (_selectedCategory == null) {
+                            return const SingleChildScrollView();
+                          }
+
+                          final children = _selectedCategory!.children;
+
+                          return GridView.builder(
+                            itemCount: children.length,
+                            padding: const EdgeInsets.all(5),
+                            primary: false,
+                            shrinkWrap: true,
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
+                              childAspectRatio: 0.8,
+                            ),
+                            itemBuilder: (context, index) {
+                              final item = children[index];
+                              return CategoryItemChild(
+                                category: item,
+                                onTap: () {
+                                  AutoRouter.of(context).push(SearchRoute(
+                                    input: SearchInput(collectionId: item.id),
+                                  ));
                                 },
-                              ),
-                      )
-                    ],
-                  ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],

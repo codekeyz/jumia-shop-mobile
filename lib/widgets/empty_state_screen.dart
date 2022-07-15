@@ -16,7 +16,7 @@ class EmptyStateScreen extends StatelessWidget {
     required this.onRefresh,
     required this.message,
     this.iconWidget,
-    this.icon,
+    this.icon = Icons.data_usage,
     this.builder,
     this.bottom,
   }) : super(key: key);
@@ -44,36 +44,34 @@ class EmptyStateScreen extends StatelessWidget {
                         const SizedBox(width: double.maxFinite),
                         SizedBox(
                           width: 300,
-                          child: Card(
-                            child: Column(
-                              children: [
-                                if (icon != null) ...[
-                                  Icon(
-                                    icon,
-                                    size: 80,
-                                    color: Colors.grey,
-                                  ),
-                                  const SizedBox(height: 24),
-                                ] else if (iconWidget != null) ...[
-                                  iconWidget!,
-                                  const SizedBox(height: 24),
-                                ],
-                                Text(
-                                  message,
-                                  textAlign: TextAlign.center,
-                                  style:
-                                      _themeData.textTheme.headline4!.copyWith(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                  ),
+                          child: Column(
+                            children: [
+                              if (icon != null) ...[
+                                Icon(
+                                  icon,
+                                  size: 80,
+                                  color: Colors.grey,
                                 ),
-                                const SizedBox(height: 16),
-                                if (bottom != null) ...[
-                                  const SizedBox(height: 30),
-                                  bottom!,
-                                ]
+                                const SizedBox(height: 24),
+                              ] else if (iconWidget != null) ...[
+                                iconWidget!,
+                                const SizedBox(height: 24),
                               ],
-                            ),
+                              Text(
+                                message,
+                                textAlign: TextAlign.center,
+                                style: _themeData.textTheme.headline4!.copyWith(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              if (bottom != null) ...[
+                                const SizedBox(height: 30),
+                                bottom!,
+                              ]
+                            ],
                           ),
                         ),
                       ],
