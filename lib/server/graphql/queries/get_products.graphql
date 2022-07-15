@@ -1,10 +1,7 @@
-query products {
-  products(options: {}) {
+query products($options: ProductListOptions) {
+  products(options: $options) {
     items {
       id
-      createdAt
-      updatedAt
-      languageCode
       name
       slug
       description
@@ -13,27 +10,18 @@ query products {
         type
         source
       }
-      assets {
-        name
-        type
-        source
-      }
-      variants {
-        id
-        product {
+      variantList(options: { take: 1 }) {
+        items {
+          id
+          price
           name
-          slug
-          description
-          featuredAsset {
-            name
-            type
-            source
+          product {
+            id
           }
+          currencyCode
+          createdAt
+          updatedAt
         }
-      }
-      optionGroups {
-        id
-        name
       }
     }
     totalItems
