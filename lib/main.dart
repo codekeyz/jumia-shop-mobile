@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jumia_shop/features/categories/category_provider.dart';
 import 'package:jumia_shop/features/products/products_provider.dart';
+import 'package:jumia_shop/features/search_provider.dart';
 import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/services/injector.dart';
 import 'package:jumia_shop/widgets/loader/loader_controller.dart';
@@ -22,6 +23,7 @@ class _AppDataProviders extends StatelessWidget {
         ChangeNotifierProvider<LoaderController>(create: (_) => LoaderController()),
         ChangeNotifierProvider<ProductsProvider>(create: (_) => ProductsProvider()),
         ChangeNotifierProvider<CategoryProvider>(create: (_) => CategoryProvider()),
+        ChangeNotifierProvider<SearchProvider>(create: (_) => SearchProvider()),
       ],
       child: child,
     );
