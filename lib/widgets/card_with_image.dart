@@ -4,7 +4,7 @@ class CardWithImage extends StatelessWidget {
   final double cardWidth;
   final double imageHeight;
   final String title;
-  final String description;
+  final String? description;
   final ImageProvider imageProvider;
   final VoidCallback onTap;
 
@@ -19,7 +19,7 @@ class CardWithImage extends StatelessWidget {
     required this.title,
     required this.imageProvider,
     required this.onTap,
-    required this.description,
+    this.description,
     this.titleStyle,
     this.subtitleStyle,
     this.alignment = CrossAxisAlignment.start,
@@ -69,18 +69,20 @@ class CardWithImage extends StatelessWidget {
                                   letterSpacing: 0.1,
                                 ),
                       ),
-                      const SizedBox(height: 4.0),
-                      Text(
-                        description,
-                        maxLines: 1,
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.ellipsis,
-                        style: subtitleStyle ??
-                            Theme.of(context).textTheme.bodyText2?.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                      )
+                      if (description != null) ...[
+                        const SizedBox(height: 4.0),
+                        Text(
+                          description!,
+                          maxLines: 1,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
+                          style: subtitleStyle ??
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                        ),
+                      ],
                     ],
                   ),
                 )
