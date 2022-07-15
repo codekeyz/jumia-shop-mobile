@@ -39,9 +39,62 @@ class Product {
 }
 
 @JsonSerializable(explicitToJson: true)
+class ProductDetail extends Product {
+  final List<ServerAsset> assets;
+  final List<ProductCategory> collections;
+  final List<ProductOptionGroup> optionGroups;
+  final List<ServerValue> facetValues;
+  final List<ProductVariant> variants;
+
+  ProductDetail(
+    final String id,
+    final String name,
+    final String description,
+    final String slug,
+    final ServerAsset featuredAsset, {
+    this.assets = const [],
+    this.collections = const [],
+    this.optionGroups = const [],
+    this.facetValues = const [],
+    this.variants = const [],
+  }) : super(
+          id,
+          name,
+          description,
+          slug: slug,
+          featuredAsset: featuredAsset,
+          variantList: const PaginatedModel<ProductVariant>(),
+        );
+
+  @override
+  Map<String, dynamic> toJson() => _$ProductDetailToJson(this);
+
+  factory ProductDetail.fromJson(Map<String, dynamic> datamap) {
+    return _$ProductDetailFromJson(datamap);
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ProductCategory {
+  final String id;
+  final String name;
+  final String slug;
+
+  const ProductCategory(this.name, this.slug, this.id);
+
+  Map<String, dynamic> toJson() => _$ProductCategoryToJson(this);
+
+  factory ProductCategory.fromJson(Map<String, dynamic> datamap) {
+    return _$ProductCategoryFromJson(datamap);
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class ProductVariant {
   final String name;
   final double price;
+  final String? stockLevel;
+  final ServerAsset? featuredAsset;
 
   final ServerIdRelation product;
 
@@ -54,6 +107,8 @@ class ProductVariant {
     this.name,
     this.product,
     this.price, {
+    this.featuredAsset,
+    this.stockLevel,
     required this.currentCode,
     required this.createdAt,
     required this.updatedAt,
@@ -101,4 +156,43 @@ class ProductListOptions {
 
   factory ProductListOptions.fromJson(Map<String, dynamic> datamap) =>
       _$ProductListOptionsFromJson(datamap);
+}
+
+@JsonSerializable(explicitToJson: true)
+class FacetValue extends ServerValue {
+  FacetValue(String id, String name) : super(id, name);
+
+  @override
+  Map<String, dynamic> toJson() => _$FacetValueToJson(this)..removeNulls();
+
+  factory FacetValue.fromJson(Map<String, dynamic> datamap) => _$FacetValueFromJson(datamap);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ProductOption extends ServerValue {
+  final String groupId;
+
+  const ProductOption(
+    String id,
+    String name,
+    this.groupId,
+  ) : super(id, name);
+
+  @override
+  Map<String, dynamic> toJson() => _$ProductOptionToJson(this)..removeNulls();
+
+  factory ProductOption.fromJson(Map<String, dynamic> datamap) => _$ProductOptionFromJson(datamap);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ProductOptionGroup {
+  final String name;
+  final List<ProductOption> options;
+
+  const ProductOptionGroup(this.name, {this.options = const []});
+
+  Map<String, dynamic> toJson() => _$ProductOptionGroupToJson(this)..removeNulls();
+
+  factory ProductOptionGroup.fromJson(Map<String, dynamic> datamap) =>
+      _$ProductOptionGroupFromJson(datamap);
 }

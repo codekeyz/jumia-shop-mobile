@@ -1,0 +1,55 @@
+query getProductDetail($id: ID, $slug: String) {
+  product(id: $id, slug: $slug) {
+    id
+    createdAt
+    updatedAt
+    languageCode
+    name
+    slug
+    description
+    optionGroups {
+      name
+      options {
+        name
+        id
+        groupId
+      }
+    }
+    facetValues {
+      name
+      id
+    }
+    variants {
+      name
+      price
+      stockLevel
+      createdAt
+      updatedAt
+      product {
+        id
+      }
+      featuredAsset {
+        name
+        type
+        source
+      }
+      options {
+        name
+        group {
+          name
+          id
+        }
+      }
+    }
+    featuredAsset {
+      name
+      type
+      source
+    }
+    assets {
+      name
+      type
+      source
+    }
+  }
+}

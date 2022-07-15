@@ -5,10 +5,12 @@ import 'package:jumia_shop/widgets/card_with_image.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
+  final VoidCallback onTap;
 
   const ProductItem({
     Key? key,
     required this.product,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class ProductItem extends StatelessWidget {
       title: variant.name,
       alignment: CrossAxisAlignment.center,
       imageProvider: NetworkImage(product.featuredAsset.source),
-      onTap: () {},
+      onTap: onTap,
       titleStyle: themeData.textTheme.bodyText2?.copyWith(
         color: Colors.black,
         fontWeight: FontWeight.w300,

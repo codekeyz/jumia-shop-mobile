@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:jumia_shop/pages/widgets/products_view.dart';
+import 'package:jumia_shop/pages/product/products_view.dart';
 import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/models/product.dart';
 
