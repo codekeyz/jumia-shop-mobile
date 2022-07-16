@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>478583735702-e6ff3roj93jltmhd3bi5nesrkj71ten7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.478583735702-e6ff3roj93jltmhd3bi5nesrkj71ten7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDP9REolFNFwP8C5UvpKEA2X1g2FVXs39E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>478583735702</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.jumia.shop</string>
+	<key>PROJECT_ID</key>
+	<string>jumia-shop</string>
+	<key>STORAGE_BUCKET</key>
+	<string>jumia-shop.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:478583735702:ios:2e16c80c012ec9a56789b7</string>
+</dict>
+</plist>

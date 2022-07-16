@@ -1,12 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:jumia_shop/features/categories/category_provider.dart';
-import 'package:jumia_shop/features/products/products_provider.dart';
+import 'package:jumia_shop/features/auth_provider.dart';
+import 'package:jumia_shop/features/category_provider.dart';
+import 'package:jumia_shop/features/products_provider.dart';
 import 'package:jumia_shop/features/search_provider.dart';
 import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/services/injector.dart';
 import 'package:jumia_shop/widgets/loader/loader_controller.dart';
 import 'package:jumia_shop/widgets/loader/loader_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'firebase_options.dart';
 
 class _AppDataProviders extends StatelessWidget {
   final Widget child;
@@ -24,6 +28,7 @@ class _AppDataProviders extends StatelessWidget {
         ChangeNotifierProvider<ProductsProvider>(create: (_) => ProductsProvider()),
         ChangeNotifierProvider<CategoryProvider>(create: (_) => CategoryProvider()),
         ChangeNotifierProvider<SearchProvider>(create: (_) => SearchProvider()),
+        ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
       ],
       child: child,
     );
@@ -31,6 +36,11 @@ class _AppDataProviders extends StatelessWidget {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await registerServices();
 
   runApp(_AppDataProviders(child: MyApp()));
@@ -53,10 +63,18 @@ class MyApp extends StatelessWidget {
         return LoaderWrapper(child: child!);
       },
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.amber,
         backgroundColor: Colors.white,
         splashColor: Colors.white,
         canvasColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         inputDecorationTheme: const InputDecorationTheme(
           fillColor: Colors.white,
           hintStyle: TextStyle(
