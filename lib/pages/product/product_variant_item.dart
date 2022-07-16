@@ -19,7 +19,7 @@ class ProductVariantItem extends StatelessWidget {
     final themeData = Theme.of(context);
 
     final textColor = selected ? Colors.white : null;
-    final bgColor = selected ? Colors.teal : Colors.teal.withOpacity(0.06);
+    final bgColor = selected ? themeData.primaryColor : themeData.primaryColor.withOpacity(0.06);
     return Material(
       child: InkWell(
         onTap: onTap,

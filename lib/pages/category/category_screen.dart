@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:jumia_shop/features/categories/category_provider.dart';
+import 'package:jumia_shop/features/category_provider.dart';
 import 'package:jumia_shop/pages/category/category_item.dart';
 import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/models/category.dart';
 import 'package:jumia_shop/server/models/search.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
 import 'package:jumia_shop/widgets/empty_state_screen.dart';
+import 'package:jumia_shop/widgets/loader/loader_screen.dart';
 import 'package:jumia_shop/widgets/refresh_wrapper.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
         title: const Text('Categories'),
       ),
       body: StreamBuilder<ProviderEvent>(
-        stream: null,
+        stream: _categoryProvider.stream,
+        initialData: _categoryProvider.lastEvent,
         builder: (_, snap) {
           final categories =
               _categoryProvider.categories.where((e) => e.children.isNotEmpty).toList();
@@ -56,7 +58,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
           if (categories.isEmpty) {
             if (data?.state == ProviderState.loading) {
-              return const SizedBox.shrink();
+              return LoadingScreen(backgroundColor: Colors.grey.shade400);
             } else if (data?.state == ProviderState.error) {
               return EmptyStateScreen(
                 onRefresh: fetchCategories,

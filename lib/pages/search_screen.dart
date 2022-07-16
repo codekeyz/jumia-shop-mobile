@@ -107,7 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
           if (result == null || (result.items.isEmpty && result.categories.isEmpty)) {
             if (data?.state == ProviderState.loading) {
-              return const LoadingScreen();
+              return LoadingScreen(backgroundColor: Colors.grey.shade400);
             }
 
             if (_searchInput != null) {

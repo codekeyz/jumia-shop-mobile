@@ -83,7 +83,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       builder: (_, value, c) {
         final productDetail = value.data;
         if (productDetail == null) {
-          return const LoadingScreen();
+          return LoadingScreen(backgroundColor: Colors.grey.shade400);
         }
 
         final facetValues = productDetail.facetValues;
@@ -187,7 +187,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   child: TextButton.icon(
                     onPressed: () {},
                     style: TextButton.styleFrom(
-                      backgroundColor: Colors.teal,
+                      backgroundColor: themeData.primaryColor,
                       primary: Colors.white,
                     ),
                     icon: const Icon(Icons.add_shopping_cart_outlined),
