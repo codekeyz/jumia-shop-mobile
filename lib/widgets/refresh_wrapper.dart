@@ -12,7 +12,7 @@ class RefreshWrapper extends StatelessWidget {
   final ScrollController? controller;
   final Widget Function(BuildContext ctx)? buildScrollParent;
 
-  const RefreshWrapper({
+  RefreshWrapper({
     Key? key,
     required this.onRefresh,
     this.body,
@@ -20,6 +20,8 @@ class RefreshWrapper extends StatelessWidget {
     this.controller,
     this.buildScrollParent,
   }) : super(key: key);
+
+  final scrollContrller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +43,10 @@ class RefreshWrapper extends StatelessWidget {
     }
 
     return CupertinoScrollbar(
-      controller: controller,
+      controller: scrollContrller,
       child: CustomScrollView(
-        controller: controller,
+        controller: scrollContrller,
+        physics: const AlwaysScrollableScrollPhysics(),
         slivers: <Widget>[
           CupertinoSliverRefreshControl(onRefresh: onRefresh),
           SliverToBoxAdapter(
