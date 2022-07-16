@@ -22,6 +22,8 @@ class ProductsProvider extends BaseProvider<List<Product>> {
   }) async {
     if (options != null) _options = options;
 
+    addEvent(const ProviderEvent.loading());
+
     try {
       final result = await gqlClient.runQuery(
         GetProductsRequest(options: _options.toJson()),

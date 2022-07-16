@@ -8,6 +8,8 @@ class SearchProvider extends BaseProvider<SearchResponse?> {
   GraphQLClient get gqlClient => getIt.get<GraphQLClient>();
 
   Future<void> search(SearchInput input) async {
+    addEvent(const ProviderEvent.loading());
+
     try {
       final _result = await gqlClient.runQuery(SearchRequest(input), resultKey: 'search');
       addEvent(ProviderEvent.success(data: SearchResponse.fromJson(_result!)));

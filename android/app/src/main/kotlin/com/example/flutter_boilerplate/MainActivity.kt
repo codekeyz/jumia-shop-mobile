@@ -1,4 +1,4 @@
-package com.example.flutter_boilerplate
+package com.jumia.shop
 
 import io.flutter.embedding.android.FlutterActivity
 

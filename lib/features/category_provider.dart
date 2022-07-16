@@ -15,6 +15,8 @@ class CategoryProvider extends BaseProvider<List<Category>> {
       _dataBag.values.toList()..sort((a, b) => b.children.length.compareTo(a.children.length));
 
   Future<void> fetchCategories({bool refresh = false}) async {
+    addEvent(const ProviderEvent.loading());
+
     try {
       final result = await gqlClient.runQuery(
         GetCollectionsRequest(),
