@@ -7,12 +7,10 @@ Inspired by the [Jumia](https://play.google.com/store/apps/details?id=com.jumia.
 
 ## Features
 
-- [x] &nbsp; Flutter Boilerplate
-- [x] &nbsp; Setup Routes (HomeTab, CategoryTab, AccountTab)
-- [x] &nbsp: Build HomeScreen Layout
-
-  - [x] &nbsp: Build Search Header
-  - [x] &nbsp: Fetch & Display Products
+✅ &nbsp; [Flutter boilerplate](https://github.com/codekeyz/flutter_boilerplate)
+✅ &nbsp; [State management](https://pub.dev/packages/provider)
+✅ &nbsp; [GraphQL Client](https://github.com/codekeyz/gql_codegen)
+✅ &nbsp; [Routing](https://pub.dev/packages/auto_route)
 
 ## Screenshots
 
