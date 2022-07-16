@@ -8,6 +8,7 @@ class RefreshWrapper extends StatelessWidget {
   final Widget? body;
   final Future Function() onRefresh;
   final EdgeInsets? padding;
+  final bool toBox;
 
   final ScrollController? controller;
   final Widget Function(BuildContext ctx)? buildScrollParent;
@@ -19,6 +20,7 @@ class RefreshWrapper extends StatelessWidget {
     this.padding,
     this.controller,
     this.buildScrollParent,
+    this.toBox = true,
   }) : super(key: key);
 
   final scrollContrller = ScrollController();
@@ -42,6 +44,18 @@ class RefreshWrapper extends StatelessWidget {
       );
     }
 
+    var view = buildScrollParent == null
+        ? SingleChildScrollView(
+            child: body,
+            padding: padding,
+            primary: false,
+          )
+        : buildScrollParent!.call(context);
+
+    if (toBox) {
+      view = SliverToBoxAdapter(child: view);
+    }
+
     return CupertinoScrollbar(
       controller: scrollContrller,
       child: CustomScrollView(
@@ -49,15 +63,7 @@ class RefreshWrapper extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: <Widget>[
           CupertinoSliverRefreshControl(onRefresh: onRefresh),
-          SliverToBoxAdapter(
-            child: buildScrollParent == null
-                ? SingleChildScrollView(
-                    child: body,
-                    padding: padding,
-                    primary: false,
-                  )
-                : buildScrollParent!.call(context),
-          ),
+          view,
         ],
       ),
     );
