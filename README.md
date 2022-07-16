@@ -24,9 +24,13 @@ I took these on the Apple Simulator
 | ------------------------------------------- | ------------------------------------------- |
 | <img src="./screenshots/3.png" width="300"> | <img src="./screenshots/4.png" width="300"> |
 
-| Product Detail (1)                          | Product Detail (2)                          |
+| Product Detail (1)                          | ProductDetail (2)                           |
 | ------------------------------------------- | ------------------------------------------- |
 | <img src="./screenshots/5.png" width="300"> | <img src="./screenshots/6.png" width="300"> |
+
+| EmptyState (3)                              |
+| ------------------------------------------- |
+| <img src="./screenshots/7.png" width="300"> |
 
 ## Requirements
 
