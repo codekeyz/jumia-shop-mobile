@@ -91,22 +91,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
               Expanded(
                 child: Column(
                   children: [
-                    Container(
-                      color: Colors.white,
-                      width: double.maxFinite,
-                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('SEE ALL PRODUCTS',
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.chevron_right),
-                          ),
-                        ],
+                    GestureDetector(
+                      onTap: () => AutoRouter.of(context).push(SearchRoute(
+                        input: SearchInput(collectionId: _selectedCategory!.id.toString()),
+                      )),
+                      child: Container(
+                        color: Colors.white,
+                        width: double.maxFinite,
+                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('SEE ALL PRODUCTS',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                )),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.chevron_right),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 5),
