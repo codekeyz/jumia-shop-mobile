@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:gql_client/gql_client.dart';
 import 'package:jumia_shop/pages/product/product_facet_item.dart';
 import 'package:jumia_shop/pages/product/product_variant_item.dart';
+import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/graphql/queries/get_product.g.dart';
 import 'package:jumia_shop/server/models/product.dart';
+import 'package:jumia_shop/server/models/search.dart';
 import 'package:jumia_shop/server/services/injector.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
 import 'package:jumia_shop/utils/helper_fncs.dart';
@@ -126,7 +128,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             itemCount: facetValues.length,
                             itemBuilder: (_, i) {
                               final facet = facetValues[i];
-                              return ProductFacetItem(facet: facet);
+
+                              return ProductFacetItem(
+                                facet: facet,
+                                onTap: () => AutoRouter.of(context).push(SearchRoute(
+                                  input: SearchInput(facetValueIds: [facet.id]),
+                                )),
+                              );
                             },
                           ),
                         ),
