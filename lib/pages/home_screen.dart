@@ -1,7 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jumia_shop/pages/product/products_view.dart';
-import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/models/product.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,9 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Image.asset('assets/img/logo_name.png'),
         actions: [
           IconButton(
-            onPressed: () => AutoRouter.of(context).push(
-              const CartRoute(),
-            ),
+            onPressed: () => context.go('/cart'),
             splashRadius: 20,
             icon: const Icon(Icons.shopping_cart_outlined),
           )
@@ -33,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () => AutoRouter.of(context).push(SearchRoute()),
                   child: const TextField(
                     autofocus: false,
                     enabled: false,

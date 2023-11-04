@@ -11,8 +11,8 @@ class CategoryProvider extends BaseProvider<List<Category>> {
 
   final Map<String, Category> _dataBag = {};
 
-  List<Category> get categories =>
-      _dataBag.values.toList()..sort((a, b) => b.children.length.compareTo(a.children.length));
+  List<Category> get categories => _dataBag.values.toList()
+    ..sort((a, b) => b.children.length.compareTo(a.children.length));
 
   Future<void> fetchCategories({bool refresh = false}) async {
     addEvent(const ProviderEvent.loading());
@@ -23,7 +23,9 @@ class CategoryProvider extends BaseProvider<List<Category>> {
         resultKey: 'collections',
       );
 
-      final categories = (result!['items'] as Iterable).map((e) => Category.fromJson(e)).toList();
+      final categories = (result!['items'] as Iterable)
+          .map((e) => Category.fromJson(e))
+          .toList();
 
       for (final p in categories) {
         _dataBag[p.id] = p;

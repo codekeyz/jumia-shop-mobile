@@ -1,8 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:jumia_shop/features/products_provider.dart';
 import 'package:jumia_shop/pages/product/product_item.dart';
-import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/models/product.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
 import 'package:jumia_shop/widgets/empty_state_screen.dart';
@@ -81,9 +79,7 @@ class _ProductsViewState extends State<ProductsView> {
 
                 return ProductItem(
                   product: products[index],
-                  onTap: () => AutoRouter.of(context).push(
-                    ProductDetailRoute(productId: product.id),
-                  ),
+                  onTap: () => {},
                 );
               },
             );

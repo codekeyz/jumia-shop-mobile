@@ -30,7 +30,9 @@ class ProductsProvider extends BaseProvider<List<Product>> {
         resultKey: 'products',
       );
 
-      final products = (result!['items'] as Iterable).map((e) => Product.fromJson(e)).toList();
+      final products = (result!['items'] as Iterable)
+          .map((e) => Product.fromJson(e))
+          .toList();
 
       for (final p in products) {
         _dataBag[p.id] = p;

@@ -1,10 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jumia_shop/features/search_provider.dart';
 import 'package:jumia_shop/pages/category/category_item.dart';
 import 'package:jumia_shop/pages/product/product_item.dart';
-import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/models/category.dart';
 import 'package:jumia_shop/server/models/search.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
@@ -80,8 +78,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
                 filled: true,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                prefixIcon: searchText.isEmpty ? const Icon(Icons.search) : null,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                prefixIcon:
+                    searchText.isEmpty ? const Icon(Icons.search) : null,
                 suffixIcon: GestureDetector(
                   child: const Icon(Icons.close),
                   onTap: () {
@@ -89,8 +89,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       reset();
                       return;
                     }
-
-                    AutoRouter.of(context).pop();
                   },
                 ),
               ),
@@ -105,7 +103,8 @@ class _SearchScreenState extends State<SearchScreen> {
           final data = snap.data;
           final result = data?.data;
 
-          if (result == null || (result.items.isEmpty && result.categories.isEmpty)) {
+          if (result == null ||
+              (result.items.isEmpty && result.categories.isEmpty)) {
             if (data?.state == ProviderState.loading) {
               return LoadingScreen(backgroundColor: Colors.grey.shade400);
             }
@@ -113,7 +112,8 @@ class _SearchScreenState extends State<SearchScreen> {
             if (_searchInput != null) {
               return EmptyStateScreen(
                 onRefresh: () {},
-                message: data?.message ?? 'No search results returned from server',
+                message:
+                    data?.message ?? 'No search results returned from server',
               );
             }
 
@@ -140,12 +140,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   width: double.infinity,
                   child: ProductSearchItem(
                     result: item,
-                    onTap: () {
-                      AutoRouter.of(context).push(ProductDetailRoute(
-                        productId: item.productId,
-                        productVariantId: item.productVariantId,
-                      ));
-                    },
+                    onTap: () {},
                   ),
                 );
               }
@@ -155,11 +150,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   height: 100,
                   child: CategoryItemChild(
                     category: item,
-                    onTap: () {
-                      AutoRouter.of(context).replace(SearchRoute(
-                        input: SearchInput(collectionId: item.id),
-                      ));
-                    },
+                    onTap: () {},
                   ),
                 );
               }

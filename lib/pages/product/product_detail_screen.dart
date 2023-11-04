@@ -1,13 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:gql_client/gql_client.dart';
 import 'package:jumia_shop/pages/product/product_facet_item.dart';
 import 'package:jumia_shop/pages/product/product_variant_item.dart';
-import 'package:jumia_shop/router/user_router.gr.dart';
-import 'package:jumia_shop/server/graphql/queries/get_product.g.dart';
 import 'package:jumia_shop/server/models/product.dart';
-import 'package:jumia_shop/server/models/search.dart';
-import 'package:jumia_shop/server/services/injector.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
 import 'package:jumia_shop/utils/helper_fncs.dart';
 import 'package:jumia_shop/widgets/loader/loader_screen.dart';
@@ -21,9 +15,9 @@ class ProductDetailScreen extends StatefulWidget {
 
   const ProductDetailScreen({
     Key? key,
-    @QueryParam() this.productId,
-    @QueryParam() this.productSlug,
-    @QueryParam() this.productVariantId,
+    this.productId,
+    this.productSlug,
+    this.productVariantId,
   })  : assert(productId != null || productSlug != null),
         super(key: key);
 
@@ -52,19 +46,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Future<void> fetchProduct({String? id, String? slug}) async {
-    try {
-      final _result = await getIt.get<GraphQLClient>().runQuery(
-            GetProductRequest(id: id, slug: slug),
-            resultKey: 'product',
-          );
+    // try {
+    //   final _result = await getIt.get<GraphQLClient>().runQuery(
+    //         GetProductRequest(id: id, slug: slug),
+    //         resultKey: 'product',
+    //       );
 
-      final detail = ProductDetail.fromJson(_result!);
+    //   final detail = ProductDetail.fromJson(_result!);
 
-      setVariant(detail.variants);
-      _detailNotifier.value = ProviderEvent.success(data: detail);
-    } on NetworkError catch (e) {
-      _detailNotifier.value = ProviderEvent.error(message: e.message);
-    }
+    //   setVariant(detail.variants);
+    //   _detailNotifier.value = ProviderEvent.success(data: detail);
+    // } on NetworkError catch (e) {
+    //   _detailNotifier.value = ProviderEvent.error(message: e.message);
+    // }
   }
 
   void setVariant(List<ProductVariant> variants) {
@@ -89,7 +83,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         final facetValues = productDetail.facetValues;
         final variants = productDetail.variants;
 
-        final featuredAsset = _selectedVariant?.featuredAsset ?? productDetail.featuredAsset;
+        final featuredAsset =
+            _selectedVariant?.featuredAsset ?? productDetail.featuredAsset;
 
         return Scaffold(
           appBar: AppBar(
@@ -113,7 +108,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     children: [
                       Text(
                         productDetail.name,
-                        style: themeData.textTheme.headline6,
+                        style: themeData.textTheme.titleLarge,
                       ),
                       const SizedBox(height: 10),
                       if (facetValues.isNotEmpty) ...[
@@ -124,16 +119,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            separatorBuilder: (_, i) => const SizedBox(width: 10, child: Text('|')),
+                            separatorBuilder: (_, i) =>
+                                const SizedBox(width: 10, child: Text('|')),
                             itemCount: facetValues.length,
                             itemBuilder: (_, i) {
                               final facet = facetValues[i];
 
                               return ProductFacetItem(
                                 facet: facet,
-                                onTap: () => AutoRouter.of(context).push(SearchRoute(
-                                  input: SearchInput(facetValueIds: [facet.id]),
-                                )),
+                                onTap: () => {},
                               );
                             },
                           ),
@@ -142,11 +136,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
                       Text(
                         displayPrice(_selectedVariant!.price),
-                        style: themeData.textTheme.headline6,
+                        style: themeData.textTheme.titleLarge,
                       ),
                       const SizedBox(height: 10),
                       if (variants.isNotEmpty) ...[
                         Wrap(
+                          runSpacing: 10,
+                          spacing: 10,
                           children: variants
                               .map((e) => ProductVariantItem(
                                   variant: e,
@@ -155,18 +151,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     setState(() => _selectedVariant = e);
                                   }))
                               .toList(),
-                          runSpacing: 10,
-                          spacing: 10,
                         ),
                         const SizedBox(height: 16),
                       ],
                       Material(
-                        child: Text(
-                          productDetail.description,
-                          style: themeData.textTheme.bodyText2?.copyWith(
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
+                        child: Text(productDetail.description,
+                            style: themeData.textTheme.bodyMedium),
                       ),
                       const SizedBox(height: 20),
                     ],
@@ -188,7 +178,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     onPressed: () {},
                     style: TextButton.styleFrom(
                       backgroundColor: themeData.primaryColor,
-                      primary: Colors.white,
+                      foregroundColor: Colors.white,
                     ),
                     icon: const Icon(Icons.add_shopping_cart_outlined),
                     label: const Text('Add to Cart'),

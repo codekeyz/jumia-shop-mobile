@@ -1,10 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:jumia_shop/features/category_provider.dart';
 import 'package:jumia_shop/pages/category/category_item.dart';
-import 'package:jumia_shop/router/user_router.gr.dart';
 import 'package:jumia_shop/server/models/category.dart';
-import 'package:jumia_shop/server/models/search.dart';
 import 'package:jumia_shop/utils/base_provider.dart';
 import 'package:jumia_shop/widgets/empty_state_screen.dart';
 import 'package:jumia_shop/widgets/loader/loader_screen.dart';
@@ -52,8 +49,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
         stream: _categoryProvider.stream,
         initialData: _categoryProvider.lastEvent,
         builder: (_, snap) {
-          final categories =
-              _categoryProvider.categories.where((e) => e.children.isNotEmpty).toList();
+          final categories = _categoryProvider.categories
+              .where((e) => e.children.isNotEmpty)
+              .toList();
           final data = snap.data;
 
           if (categories.isEmpty) {
@@ -62,7 +60,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
             } else if (data?.state == ProviderState.error) {
               return EmptyStateScreen(
                 onRefresh: fetchCategories,
-                message: data?.message ?? 'An error occurred while fetching data',
+                message:
+                    data?.message ?? 'An error occurred while fetching data',
               );
             }
           }
@@ -74,7 +73,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 child: Container(
                   color: Colors.white,
                   child: ListView.separated(
-                    separatorBuilder: (_, i) => const Divider(thickness: 0.3, height: 0),
+                    separatorBuilder: (_, i) =>
+                        const Divider(thickness: 0.3, height: 0),
                     itemBuilder: (_, index) {
                       final cat = categories[index];
                       return CategoryItemParent(
@@ -94,13 +94,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: () => AutoRouter.of(context).push(SearchRoute(
-                        input: SearchInput(collectionId: _selectedCategory!.id.toString()),
-                      )),
+                      onTap: () => {},
                       child: Container(
                         color: Colors.white,
                         width: double.maxFinite,
-                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 2, horizontal: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -132,7 +131,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             padding: const EdgeInsets.all(5),
                             primary: false,
                             shrinkWrap: true,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisSpacing: 8,
                               crossAxisSpacing: 8,
@@ -142,11 +142,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               final item = children[index];
                               return CategoryItemChild(
                                 category: item,
-                                onTap: () {
-                                  AutoRouter.of(context).push(SearchRoute(
-                                    input: SearchInput(collectionId: item.id),
-                                  ));
-                                },
+                                onTap: () {},
                               );
                             },
                           );

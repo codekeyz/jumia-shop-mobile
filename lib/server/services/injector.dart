@@ -4,7 +4,7 @@ import 'package:gql_client/gql_client.dart';
 final getIt = GetIt.instance;
 
 Future<void> registerServices() async {
-  const gqlConfig = GraphqlLiteConfig(
+  const gqlConfig = GraphqlConfig(
     apiEndpoint: "http://localhost:3000/shop-api",
   );
 

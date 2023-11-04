@@ -16,7 +16,8 @@ class LoaderView extends StatefulWidget {
   State<LoaderView> createState() => _LoaderViewState();
 }
 
-class _LoaderViewState extends State<LoaderView> with SingleTickerProviderStateMixin {
+class _LoaderViewState extends State<LoaderView>
+    with SingleTickerProviderStateMixin {
   AnimationController get controller => widget.controller;
 
   late Animation<double> blurValue = Tween(
@@ -61,11 +62,8 @@ class _LoaderViewState extends State<LoaderView> with SingleTickerProviderStateM
                     const SizedBox(height: 24),
                     Text(
                       widget.message!,
-                      style: _themeData.textTheme.subtitle1!.copyWith(
+                      style: _themeData.textTheme.titleMedium!.apply(
                         color: Colors.white,
-                        fontSize: 15,
-                        height: 1.3,
-                        fontWeight: FontWeight.w300,
                       ),
                     ),
                   ]
