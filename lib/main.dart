@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jumia_shop/features/auth_provider.dart';
 import 'package:jumia_shop/features/category_provider.dart';
 import 'package:jumia_shop/features/products_provider.dart';
 import 'package:jumia_shop/features/search_provider.dart';
-import 'package:jumia_shop/router/user_router.gr.dart';
+import 'package:jumia_shop/pages/splash_screen.dart';
+import 'package:jumia_shop/router/user_router.dart';
 import 'package:jumia_shop/server/services/injector.dart';
 import 'package:jumia_shop/widgets/loader/loader_controller.dart';
 import 'package:jumia_shop/widgets/loader/loader_screen.dart';
@@ -24,9 +26,12 @@ class _AppDataProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<LoaderController>(create: (_) => LoaderController()),
-        ChangeNotifierProvider<ProductsProvider>(create: (_) => ProductsProvider()),
-        ChangeNotifierProvider<CategoryProvider>(create: (_) => CategoryProvider()),
+        ChangeNotifierProvider<LoaderController>(
+            create: (_) => LoaderController()),
+        ChangeNotifierProvider<ProductsProvider>(
+            create: (_) => ProductsProvider()),
+        ChangeNotifierProvider<CategoryProvider>(
+            create: (_) => CategoryProvider()),
         ChangeNotifierProvider<SearchProvider>(create: (_) => SearchProvider()),
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
       ],
@@ -47,16 +52,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final userRouter = UserRouter();
-
   MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routeInformationParser: userRouter.defaultRouteParser(),
-      routerDelegate: userRouter.delegate(),
+      routerConfig: userRouter,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Boilerplate',
       builder: (_, child) {
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
       },
       theme: ThemeData(
         primarySwatch: Colors.amber,
-        backgroundColor: Colors.white,
+        colorScheme: const ColorScheme.light(),
         splashColor: Colors.white,
         canvasColor: Colors.white,
         appBarTheme: const AppBarTheme(

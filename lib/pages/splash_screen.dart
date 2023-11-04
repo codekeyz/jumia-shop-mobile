@@ -1,6 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:jumia_shop/router/user_router.gr.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,8 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> init() async {
     /// do some fake loading
     await Future.delayed(const Duration(seconds: 2));
-
-    AutoRouter.of(context).replace(const IndexRoute());
+    // ignore: use_build_context_synchronously
+    context.replace('/');
   }
 
   @override
